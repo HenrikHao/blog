@@ -1,0 +1,11 @@
+usage: |-
+  This is a static Hugo blog using the PaperMod theme.
+
+  Blog content is built into the LPK before deployment. To publish changes,
+  edit the Markdown files in the source repository and deploy a new package.
+  The site is protected by LazyCat login.
+
+application:
+  subdomain: blog
+  routes:
+    - /=file:///lzcapp/pkg/content

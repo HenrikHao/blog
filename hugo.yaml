@@ -1,0 +1,85 @@
+baseURL: "https://blog.mhserver.heiyu.space/"
+locale: "en-AU"
+title: "Notes"
+theme: "PaperMod"
+timeZone: "Australia/Melbourne"
+
+enableEmoji: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+pagination:
+  pagerSize: 10
+
+permalinks:
+  posts: "/posts/:slug/"
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+menu:
+  main:
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 10
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 20
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 30
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 40
+
+params:
+  env: production
+  title: "Notes"
+  description: "Writing, projects, and things worth remembering."
+  author: "Henrik"
+  DateFormat: "2 January 2006"
+  defaultTheme: auto
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesInArchive: true
+  ShowPageNums: true
+  ShowToc: true
+
+  homeInfoParams:
+    Title: "Notes"
+    Content: "Writing, projects, and things worth remembering."
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys:
+      - title
+      - permalink
+      - summary
+      - content
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+markup:
+  highlight:
+    noClasses: false

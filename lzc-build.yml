@@ -1,0 +1,5 @@
+buildscript: ./scripts/build.sh
+manifest: ./lzc-manifest.yml
+contentdir: ./public
+pkgout: ./dist
+icon: ./assets/blog-icon.png

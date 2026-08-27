@@ -4,7 +4,7 @@ set -eu
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 project_dir=$(CDPATH= cd -- "$script_dir/.." && pwd)
 hugo_image="ghcr.io/gohugoio/hugo:v0.165.0@sha256:608a19e34f86de36773503adbaab174fc28a6e338dc7904e03c70320b003a153"
-blog_base_url=${BLOG_BASE_URL:-https://blog.mhserver.heiyu.space/}
+blog_base_url=${BLOG_BASE_URL:-https://blog.henrikhao.com/}
 
 command -v docker >/dev/null 2>&1 || {
   echo "Docker is required. Install or start Docker Desktop, then retry." >&2

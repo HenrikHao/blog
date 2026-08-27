@@ -1,8 +1,9 @@
 # Hugo PaperMod blog for LazyCat
 
 This repository contains a Hugo site using the PaperMod theme and packages the
-generated static files as a native LazyCat LPK. The deployed site is available
-at <https://blog.mhserver.heiyu.space/> and is protected by LazyCat login.
+generated static files as a native LazyCat LPK. The public site is available at
+<https://blog.henrikhao.com/> through Caddy. Its native LazyCat URL remains
+protected by LazyCat login.
 
 PaperMod is tracked as a Git submodule at `themes/PaperMod`. Hugo runs from a
 pinned, multi-architecture container, so you do not need to install Hugo on the
@@ -41,8 +42,8 @@ URL. Edit `content/about.md` for the About page. Static images belong in
 `static/images/` and are referenced in Markdown as `/images/filename.jpg`.
 
 The starter title is **Notes**. The deployed LazyCat app and subdomain are
-**Blog** and `blog`; changing the app subdomain also requires updating `baseURL`
-in `hugo.yaml`.
+**Blog** and `blog`. Changing the public hostname requires updating `baseURL`
+in `hugo.yaml` and the matching Caddy site block.
 
 ## Write a post
 

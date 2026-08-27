@@ -1,11 +1,11 @@
 package: cloud.lazycat.app.blog
-version: 0.1.0
+version: 0.1.1
 name: Blog
-description: A private Hugo blog using the PaperMod theme.
+description: A Hugo blog using the PaperMod theme.
 author: HenrikHao
 license: MIT
 homepage: https://github.com/adityatelange/hugo-PaperMod
 locales:
   zh-CN:
     name: 博客
-    description: 使用 PaperMod 主题的私有 Hugo 博客。
+    description: 使用 PaperMod 主题的 Hugo 博客。

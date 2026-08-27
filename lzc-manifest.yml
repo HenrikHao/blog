@@ -3,7 +3,8 @@ usage: |-
 
   Blog content is built into the LPK before deployment. To publish changes,
   edit the Markdown files in the source repository and deploy a new package.
-  The site is protected by LazyCat login.
+  The native LazyCat URL is protected by LazyCat login. The custom public
+  domain is routed separately through Caddy.
 
 application:
   subdomain: blog

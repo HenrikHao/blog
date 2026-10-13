@@ -6,6 +6,14 @@ url: "/about/"
 summary: "About this blog."
 ---
 
-This is a personal place for writing, projects, and things worth remembering.
+Hi, this is Henrik.
 
-Edit `content/about.md` to make this page your own.
+I write here mostly for my own benefit. A few months after reading a paper or
+getting something to work, I can no longer recall the details, and writing them
+down is the only fix I have found.
+
+Most posts are about robot learning. Each one takes a single idea, goes through
+it step by step with the code, and where I can, comes with figures you can play
+with.
+
+If you spot a mistake, I would like to hear about it.

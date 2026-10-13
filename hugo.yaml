@@ -1,6 +1,6 @@
 baseURL: "https://blog.henrikhao.com/"
 locale: "en-AU"
-title: "Notes"
+title: "Rik'Log"
 theme: "PaperMod"
 timeZone: "Australia/Melbourne"
 
@@ -28,35 +28,46 @@ outputs:
 
 menu:
   main:
-    - identifier: archives
-      name: Archives
-      url: /archives/
+    - identifier: posts
+      name: Posts
+      url: /
       weight: 10
+    - identifier: archives
+      name: Archive
+      url: /archives/
+      weight: 20
     - identifier: search
       name: Search
       url: /search/
-      weight: 20
+      weight: 30
     - identifier: tags
       name: Tags
       url: /tags/
-      weight: 30
+      weight: 40
     - identifier: about
       name: About
       url: /about/
-      weight: 40
+      weight: 50
 
 params:
   env: production
-  title: "Notes"
-  description: "Writing, projects, and things worth remembering."
-  author: "Henrik"
+  title: "Rik'Log"
+  description: "Notes on robot learning, written down so they are not forgotten. The palest ink is better than the best memory."
+  author: "Henrik Hao"
   DateFormat: "2 January 2006"
   defaultTheme: auto
   disableThemeToggle: false
   ShowReadingTime: true
-  ShowShareButtons: false
+  ShowShareButtons: true
+  ShareButtons:
+    - x
+    - linkedin
+    - reddit
+    - facebook
+    - whatsapp
+    - telegram
   ShowPostNavLinks: true
-  ShowBreadCrumbs: true
+  ShowBreadCrumbs: false
   ShowCodeCopyButtons: true
   ShowRssButtonInSectionTermList: true
   ShowAllPagesInArchive: true
@@ -64,8 +75,19 @@ params:
   ShowToc: true
 
   homeInfoParams:
-    Title: "Notes"
-    Content: "Writing, projects, and things worth remembering."
+    Title: "👋 Welcome to Rik'Log"
+    Content: |
+      *The palest ink is better than the best memory.*
+
+      Hi, this is Henrik. I write down what I learn about robot learning here, so that I can still find it later.
+
+  socialIcons:
+    - name: github
+      url: https://github.com/HenrikHao
+    - name: linkedin
+      url: https://www.linkedin.com/in/henrik-hao/
+    - name: rss
+      url: /index.xml
 
   fuseOpts:
     isCaseSensitive: false

@@ -1,0 +1,20 @@
+{{- /* Post meta line in the style of Lil'Log: Date | Estimated Reading Time | Author. */ -}}
+{{- $meta := slice }}
+
+{{- if not .Date.IsZero -}}
+    {{- $meta = $meta | append (printf "<span title='%s'>Date: %s</span>" (.Date) (.Date | time.Format (default ":date_long" site.Params.DateFormat))) }}
+{{- end }}
+
+{{- if (.Param "ShowReadingTime") -}}
+    {{- $meta = $meta | append (printf "<span>Estimated Reading Time: %d min</span>" .ReadingTime) }}
+{{- end }}
+
+{{- if not (.Param "hideAuthor") -}}
+    {{- with (partial "author.html" .) }}
+        {{- $meta = $meta | append (printf "<span>Author: %s</span>" .) }}
+    {{- end }}
+{{- end }}
+
+{{- with $meta }}
+    {{- delimit . "&nbsp;|&nbsp;" | safeHTML -}}
+{{- end -}}

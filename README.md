@@ -41,7 +41,7 @@ Edit `hugo.yaml` to change the title, description, author, menus, or production
 URL. Edit `content/about.md` for the About page. Static images belong in
 `static/images/` and are referenced in Markdown as `/images/filename.jpg`.
 
-The starter title is **Notes**. The deployed LazyCat app and subdomain are
+The site title is **Rik'Log**. The deployed LazyCat app and subdomain are
 **Blog** and `blog`. Changing the public hostname requires updating `baseURL`
 in `hugo.yaml` and the matching Caddy site block.
 

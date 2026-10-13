@@ -72,6 +72,55 @@ Write the post here.
 Drafts appear in local preview but not in production. Change `draft: true` to
 `draft: false` when the post is ready to publish.
 
+### Math
+
+Add `math: true` to the front matter. Write inline math as `\( ... \)` and
+display math as `$$ ... $$`. Hugo renders it to KaTeX markup at build time; the
+page only loads the KaTeX stylesheet, from jsDelivr.
+
+Keep math out of headings, and give math-heavy posts an explicit `summary`,
+because the plain-text version of rendered math repeats each symbol.
+
+### Interactive figures
+
+Add `viz: true` to the front matter and place a figure with the `viz`
+shortcode. The caption is optional and may contain Markdown and math:
+
+```md
+{{< viz name="attention" >}}
+One query attending to five tokens.
+{{< /viz >}}
+```
+
+The sources for a figure live in `assets/viz/<post-file-name>/`:
+
+- `<name>.html` is the markup, with any figure-specific `<style>`. It is
+  inlined into the page.
+- `<name>.js` is optional. It is minified, fingerprinted and loaded after the
+  shared helpers, and starts with `Viz.mount("<name>", (root) => { ... })`.
+- Any other `<name>.*` file (an image, a JSON file) is published as it is, and
+  the script gets its URL from `Viz.assets(root)`, keyed by extension.
+
+The same figure can be placed more than once in different modes with
+`variant="..."`. The script reads it from `root.dataset.variant`, and its
+styles should use the `.viz-<name>` class, because the element id then includes
+the variant.
+
+Shared pieces are `assets/js/viz-kit.js` (helpers) and
+`assets/css/extended/viz.css` (colour roles for light and dark, controls,
+legends). Figures should use the `--viz-*` custom properties, not raw colours,
+so they follow the theme toggle.
+
+### Series
+
+Posts that belong together share a `series` entry in the front matter, which
+gives them a listing page such as `/series/robot-learning/`:
+
+```yaml
+series:
+  - Robot Learning
+```
+
 ## Preview locally
 
 ```sh

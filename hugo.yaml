@@ -16,6 +16,10 @@ pagination:
 permalinks:
   posts: "/posts/:slug/"
 
+taxonomies:
+  tag: tags
+  series: series
+
 outputs:
   home:
     - HTML
@@ -83,3 +87,14 @@ minify:
 markup:
   highlight:
     noClasses: false
+  goldmark:
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - - '$$'
+              - '$$'
+          inline:
+            - - '\('
+              - '\)'

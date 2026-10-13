@@ -1,0 +1,47 @@
+{{- /*
+  Interactive figure for a post.
+
+    {{< viz name="attention" >}}Optional caption, Markdown allowed.{{< /viz >}}
+
+  Inlines assets/viz/<post-slug>/<name>.html and, when it exists, loads
+  assets/viz/<post-slug>/<name>.js after the shared kit (assets/js/viz-kit.js,
+  enabled with `viz: true` in front matter). Any other <name>.* file next to
+  them (images, JSON) is published, and its URL is handed to the script through
+  Viz.assets(root), keyed by extension.
+
+  The same figure can appear more than once in a post in different modes:
+
+    {{< viz name="attention-flow" variant="cross" >}}...{{< /viz >}}
+
+  The script reads the mode from root.dataset.variant. Styles that must apply to
+  every instance should use the .viz-<name> class, since the id carries the
+  variant.
+*/ -}}
+{{- $name := .Get "name" -}}
+{{- $variant := .Get "variant" -}}
+{{- $id := printf "viz-%s" $name -}}
+{{- with $variant }}{{ $id = printf "%s-%s" $id . }}{{ end -}}
+{{- $dir := printf "viz/%s" .Page.File.ContentBaseName -}}
+{{- $markup := resources.Get (printf "%s/%s.html" $dir $name) -}}
+{{- if not $markup }}
+  {{- errorf "viz: assets/%s/%s.html not found (used in %s)" $dir $name .Page.File.Path }}
+{{- end }}
+{{- $assets := dict -}}
+{{- range resources.Match (printf "%s/%s.*" $dir $name) -}}
+  {{- $ext := strings.TrimPrefix "." (path.Ext .Name) -}}
+  {{- if not (in (slice "html" "js") $ext) -}}
+    {{- $assets = merge $assets (dict $ext (. | fingerprint).RelPermalink) -}}
+  {{- end -}}
+{{- end }}
+<figure class="viz viz-{{ $name }}" id="{{ $id }}">
+  <div class="viz-body" data-viz="{{ $name }}"{{ with $variant }} data-variant="{{ . }}"{{ end }}{{ with $assets }} data-assets="{{ . | jsonify }}"{{ end }}>
+{{ $markup.Content | safeHTML }}
+  </div>
+  {{- with strings.TrimSpace .Inner }}
+  <figcaption class="viz-caption">{{ . | $.Page.RenderString }}</figcaption>
+  {{- end }}
+</figure>
+{{- with resources.Get (printf "%s/%s.js" $dir $name) }}
+  {{- $js := . | minify | fingerprint }}
+<script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{- end }}

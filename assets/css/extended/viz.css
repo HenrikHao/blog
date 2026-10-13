@@ -1,0 +1,274 @@
+/* Interactive figures ({{< viz >}} shortcode). Colours are roles, not raw hex,
+   so light and dark swap in one place. */
+
+.viz {
+    --viz-surface: var(--entry);
+    --viz-surface-2: var(--code-bg);
+    --viz-ink: var(--primary);
+    --viz-ink-2: var(--secondary);
+    --viz-muted: #898781;
+    --viz-grid: #ebeae6;
+    --viz-axis: #c3c2b7;
+    --viz-control: var(--tertiary);
+    --viz-s1: #2a78d6;
+    --viz-s2: #eb6834;
+    --viz-s3: #1baf7a;
+    --viz-neg: #e34948;
+    --viz-on-fill: #ffffff;
+    --viz-scene-0: #f1f0ec;
+    --viz-scene-1: #dddcd5;
+    --viz-scene-2: #b9b8af;
+    --viz-scene-3: #6f6e68;
+}
+
+:root[data-theme="dark"] .viz {
+    --viz-grid: #3a3a40;
+    --viz-axis: #55555c;
+    --viz-s1: #3987e5;
+    --viz-s2: #d95926;
+    --viz-s3: #199e70;
+    --viz-neg: #e66767;
+    --viz-scene-0: #26262a;
+    --viz-scene-1: #3b3b41;
+    --viz-scene-2: #5a5a62;
+    --viz-scene-3: #a3a3ab;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root[data-theme="auto"] .viz {
+        --viz-grid: #3a3a40;
+        --viz-axis: #55555c;
+        --viz-s1: #3987e5;
+        --viz-s2: #d95926;
+        --viz-s3: #199e70;
+    --viz-neg: #e66767;
+        --viz-scene-0: #26262a;
+        --viz-scene-1: #3b3b41;
+        --viz-scene-2: #5a5a62;
+        --viz-scene-3: #a3a3ab;
+    }
+}
+
+.md-content figure.viz {
+    margin: 28px 0;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--viz-surface);
+    color: var(--viz-ink);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.md-content figure.viz > figcaption.viz-caption {
+    margin: 14px 0 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    color: var(--viz-ink-2);
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.viz-caption p {
+    margin: 0;
+}
+
+.viz svg {
+    display: block;
+    max-width: 100%;
+    overflow: visible;
+}
+
+.viz svg text {
+    fill: var(--viz-ink);
+    font-family: inherit;
+}
+
+/* Wide diagrams scroll sideways on phones instead of shrinking their labels. */
+.viz-scroll {
+    overflow-x: auto;
+}
+
+.viz-scroll > svg {
+    width: 100%;
+    min-width: var(--viz-min, 600px);
+    height: auto;
+}
+
+/* Controls ------------------------------------------------------------- */
+
+.viz-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 18px;
+    margin-bottom: 14px;
+}
+
+.viz-btn,
+.viz-seg button {
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.2;
+    padding: 6px 12px;
+    border: 1px solid var(--viz-control);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--viz-ink);
+    cursor: pointer;
+}
+
+.viz-btn:hover,
+.viz-seg button:hover {
+    background: var(--viz-surface-2);
+}
+
+.viz-btn:focus-visible,
+.viz-seg button:focus-visible,
+.viz input:focus-visible,
+.viz [tabindex]:focus-visible {
+    outline: 2px solid var(--viz-s1);
+    outline-offset: 2px;
+}
+
+.viz-seg {
+    display: inline-flex;
+}
+
+.viz-seg button {
+    border-radius: 0;
+    margin-left: -1px;
+}
+
+.viz-seg button:first-child {
+    margin-left: 0;
+    border-radius: 6px 0 0 6px;
+}
+
+.viz-seg button:last-child {
+    border-radius: 0 6px 6px 0;
+}
+
+.viz-seg button[aria-pressed="true"] {
+    background: var(--viz-ink);
+    border-color: var(--viz-ink);
+    color: var(--viz-surface);
+    position: relative;
+}
+
+.viz-field {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--viz-ink-2);
+}
+
+.viz-field output {
+    min-width: 3.2em;
+    color: var(--viz-ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.viz input[type="range"] {
+    width: 120px;
+    accent-color: var(--viz-s1);
+}
+
+.viz input[type="checkbox"] {
+    accent-color: var(--viz-s1);
+}
+
+/* Text helpers --------------------------------------------------------- */
+
+.viz-note {
+    margin: 12px 0 0;
+    color: var(--viz-ink-2);
+    font-size: 13px;
+    min-height: 2.9em;
+}
+
+.viz-note strong {
+    color: var(--viz-ink);
+}
+
+.viz-chip {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid var(--viz-control);
+    border-radius: 999px;
+    color: var(--viz-ink-2);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.viz-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--viz-ink-2);
+}
+
+.viz-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.viz-key {
+    display: inline-block;
+    width: 16px;
+    height: 0;
+    border-top: 2px solid currentColor;
+    border-radius: 2px;
+}
+
+.viz-key.is-box {
+    height: 10px;
+    width: 10px;
+    border: 0;
+    border-radius: 2px;
+    background: currentColor;
+}
+
+.viz-readout {
+    font-size: 13px;
+    color: var(--viz-ink-2);
+    font-variant-numeric: tabular-nums;
+}
+
+.viz-readout b {
+    color: var(--viz-ink);
+    font-weight: 600;
+}
+
+/* Shared SVG roles ------------------------------------------------------ */
+
+.viz .ax text,
+.viz text.muted {
+    fill: var(--viz-muted);
+    font-size: 11px;
+}
+
+.viz .ax line,
+.viz .ax path {
+    stroke: var(--viz-axis);
+    stroke-width: 1;
+    fill: none;
+}
+
+.viz .grid line {
+    stroke: var(--viz-grid);
+    stroke-width: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .viz *,
+    .viz *::before,
+    .viz *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}

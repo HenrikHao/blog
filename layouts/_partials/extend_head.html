@@ -1,0 +1,8 @@
+{{- /* Per-page extras, switched on from front matter: `math: true`, `viz: true`. */ -}}
+{{- if .Param "math" }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" crossorigin="anonymous">
+{{- end }}
+{{- if .Param "viz" }}
+{{- $kit := resources.Get "js/viz-kit.js" | minify | fingerprint }}
+<script defer src="{{ $kit.RelPermalink }}" integrity="{{ $kit.Data.Integrity }}"></script>
+{{- end }}

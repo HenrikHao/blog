@@ -1,0 +1,50 @@
+<style>
+#viz-temporal-ensemble .te-chart { touch-action: pan-y; cursor: ew-resize; }
+#viz-temporal-ensemble .te-title { font-size: 12px; fill: var(--viz-ink-2); }
+#viz-temporal-ensemble .line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+#viz-temporal-ensemble .line.ideal { stroke: var(--viz-muted); stroke-width: 1.5; }
+#viz-temporal-ensemble .line.open { stroke: var(--viz-s2); }
+#viz-temporal-ensemble .line.ens { stroke: var(--viz-s1); }
+#viz-temporal-ensemble .dot { stroke: var(--viz-surface); stroke-width: 2; }
+#viz-temporal-ensemble .dot.ideal { fill: var(--viz-muted); }
+#viz-temporal-ensemble .dot.open { fill: var(--viz-s2); }
+#viz-temporal-ensemble .dot.ens { fill: var(--viz-s1); }
+#viz-temporal-ensemble .pass { fill: var(--viz-axis); opacity: .55; }
+#viz-temporal-ensemble .pass.open { fill: var(--viz-s2); opacity: .8; }
+#viz-temporal-ensemble .vote { fill: var(--viz-s1); }
+#viz-temporal-ensemble .now { fill: var(--viz-ink); opacity: .07; }
+#viz-temporal-ensemble .event { stroke: var(--viz-axis); stroke-width: 1; }
+#viz-temporal-ensemble .bar { fill: var(--viz-s1); }
+#viz-temporal-ensemble .te-foot { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 20px; margin-top: 10px; }
+#viz-temporal-ensemble .te-foot .viz-readout { flex: 1 1 240px; margin: 0; }
+#viz-temporal-ensemble .viz-key.ideal { color: var(--viz-muted); }
+#viz-temporal-ensemble .viz-key.open { color: var(--viz-s2); }
+#viz-temporal-ensemble .viz-key.ens { color: var(--viz-s1); }
+</style>
+<div class="viz-controls">
+  <button type="button" class="viz-btn" data-play>Play</button>
+  <label class="viz-field">Step t
+    <input type="range" min="0" max="79" step="1" value="46" data-t>
+    <output data-t-out>46</output>
+  </label>
+  <label class="viz-field">Chunk size k
+    <input type="range" min="4" max="24" step="1" value="12" data-k>
+    <output data-k-out>12</output>
+  </label>
+  <label class="viz-field">Decay m
+    <input type="range" min="-0.3" max="0.6" step="0.01" value="0.01" data-m>
+    <output data-m-out>0.01</output>
+  </label>
+  <label class="viz-field"><input type="checkbox" data-shift checked> Move the target at t = 40</label>
+</div>
+<div class="viz-legend">
+  <span><i class="viz-key ideal"></i>ideal action</span>
+  <span><i class="viz-key open"></i>open-loop chunks (re-plan every k steps)</span>
+  <span><i class="viz-key ens"></i>temporal ensemble (re-plan every step)</span>
+</div>
+<div class="te-chart" data-chart></div>
+<div class="te-foot">
+  <div data-weights></div>
+  <p class="viz-readout" aria-live="polite" data-readout></p>
+</div>
+<noscript><p class="viz-note">This figure is interactive and needs JavaScript.</p></noscript>

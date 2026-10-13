@@ -1,0 +1,39 @@
+<style>
+#viz-loss-kl .curve { fill: none; stroke-width: 2; stroke-linejoin: round; }
+#viz-loss-kl .curve.prior { stroke: var(--viz-muted); }
+#viz-loss-kl .curve.post { stroke: var(--viz-s3); }
+#viz-loss-kl .wash.prior { fill: var(--viz-muted); opacity: .1; }
+#viz-loss-kl .wash.post { fill: var(--viz-s3); opacity: .16; }
+#viz-loss-kl .viz-key.prior { color: var(--viz-muted); }
+#viz-loss-kl .viz-key.post { color: var(--viz-s3); }
+#viz-loss-kl .viz-key.mean { color: var(--viz-s1); }
+#viz-loss-kl .viz-key.spread { color: var(--viz-s2); }
+#viz-loss-kl .kl-bar { display: flex; gap: 2px; height: 14px; margin: 10px 0 6px; border-left: 1px solid var(--viz-axis); }
+#viz-loss-kl .kl-bar i { display: block; height: 100%; min-width: 0; transition: width .15s ease; }
+#viz-loss-kl .kl-bar .mean { background: var(--viz-s1); }
+#viz-loss-kl .kl-bar .spread { background: var(--viz-s2); border-radius: 0 4px 4px 0; }
+#viz-loss-kl .viz-readout { margin: 8px 0 0; min-height: 4.4em; }
+</style>
+<div class="viz-controls">
+  <label class="viz-field">Mean μ
+    <input type="range" min="-3" max="3" step="0.05" value="1.2" data-mu>
+    <output data-mu-out>1.20</output>
+  </label>
+  <label class="viz-field">Width σ
+    <input type="range" min="0.3" max="2.5" step="0.05" value="0.6" data-sigma>
+    <output data-sigma-out>0.60</output>
+  </label>
+  <button type="button" class="viz-btn" data-preset="ours">Our checkpoint</button>
+</div>
+<div class="viz-legend">
+  <span><i class="viz-key prior"></i>prior 𝒩(0, 1)</span>
+  <span><i class="viz-key post"></i>posterior q(z | chunk, joints), one of its 32 dimensions</span>
+</div>
+<div data-chart></div>
+<div class="viz-legend" style="margin: 12px 0 0">
+  <span><i class="viz-key mean is-box"></i>cost of moving the mean, μ² / 2</span>
+  <span><i class="viz-key spread is-box"></i>cost of changing the width, (σ² − ln σ² − 1) / 2</span>
+</div>
+<div class="kl-bar" role="img" aria-label="KL divergence split into the cost of moving the mean and the cost of changing the width" data-bar><i class="mean"></i><i class="spread"></i></div>
+<p class="viz-readout" aria-live="polite" data-readout></p>
+<noscript><p class="viz-note">This figure is interactive and needs JavaScript.</p></noscript>

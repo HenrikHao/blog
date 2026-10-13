@@ -1,0 +1,69 @@
+<style>
+#viz-attention .viz-body { container-type: inline-size; }
+#viz-attention .att { display: grid; grid-template-columns: 200px minmax(0, 1fr) 200px; gap: 16px; align-items: start; }
+#viz-attention .att-title { margin-bottom: 6px; color: var(--viz-ink-2); font-size: 12px; text-align: center; }
+#viz-attention .att-plane svg { width: 200px; height: 200px; margin: 0 auto; }
+#viz-attention .att-title .viz-key { margin: 0 4px 0 8px; vertical-align: middle; }
+#viz-attention .att-title .viz-key.q { color: var(--viz-s2); }
+#viz-attention .att-title .viz-key.k { color: var(--viz-s1); }
+#viz-attention .att-rows { display: grid; grid-template-columns: auto 40px 40px minmax(64px, 1fr); gap: 7px 8px; align-items: center; font-size: 13px; font-variant-numeric: tabular-nums; }
+#viz-attention .att-rows .hd { color: var(--viz-muted); font-size: 11px; }
+#viz-attention .att-rows .num { text-align: right; }
+#viz-attention .att-cell { opacity: 0; transition: opacity .3s ease; transition-delay: calc(var(--i, 0) * 70ms); }
+#viz-attention .att-cell.on { opacity: 1; }
+#viz-attention .att-bar { display: flex; align-items: center; gap: 6px; height: 14px; border-left: 1px solid var(--viz-axis); }
+#viz-attention .att-bar i { flex: 0 0 auto; height: 12px; width: calc((100% - 38px) * var(--w, 0)); background: var(--viz-s1); border-radius: 0 4px 4px 0; transition: width .5s ease; }
+#viz-attention .att-bar span { font-size: 12px; color: var(--viz-ink-2); }
+#viz-attention .axis { stroke: var(--viz-grid); stroke-width: 1; }
+#viz-attention .key line { stroke: var(--viz-s1); stroke-width: 2; stroke-linecap: round; }
+#viz-attention .key polygon { fill: var(--viz-s1); }
+#viz-attention .key .shaft { transition: opacity .4s ease; }
+#viz-attention .query line { stroke: var(--viz-s2); stroke-width: 2.5; stroke-linecap: round; }
+#viz-attention .query polygon { fill: var(--viz-s2); }
+#viz-attention .handle { fill: var(--viz-s2); stroke: var(--viz-surface); stroke-width: 2; }
+#viz-attention .grab { fill: transparent; cursor: grab; touch-action: none; }
+#viz-attention .is-dragging .grab { cursor: grabbing; }
+#viz-attention svg text { font-size: 11px; }
+#viz-attention .val circle { fill: var(--viz-s3); stroke: var(--viz-surface); stroke-width: 2; transition: r .5s ease, opacity .5s ease; }
+#viz-attention .link { stroke: var(--viz-s3); stroke-linecap: round; transition: opacity .5s ease; }
+#viz-attention .out { transition: transform .6s ease, opacity .4s ease; }
+#viz-attention .out circle { fill: var(--viz-surface); stroke: var(--viz-ink); stroke-width: 2; }
+#viz-attention .out text { font-weight: 600; }
+#viz-attention .is-dragging .out,
+#viz-attention .is-dragging .val circle,
+#viz-attention .is-dragging .link,
+#viz-attention .is-dragging .key .shaft,
+#viz-attention .is-dragging .att-bar i { transition: none; }
+@container (max-width: 560px) {
+  #viz-attention .att { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+<div class="viz-controls">
+  <div class="viz-seg" role="group" aria-label="Step">
+    <button type="button" data-step="1" aria-pressed="false">1 · Compare</button>
+    <button type="button" data-step="2" aria-pressed="false">2 · Scale</button>
+    <button type="button" data-step="3" aria-pressed="false">3 · Softmax</button>
+    <button type="button" data-step="4" aria-pressed="false">4 · Mix</button>
+  </div>
+  <button type="button" class="viz-btn" data-play>Play</button>
+  <label class="viz-field">Query direction
+    <input type="range" min="0" max="359" step="1" value="25" data-angle>
+    <output data-angle-out>25°</output>
+  </label>
+</div>
+<div class="att">
+  <div class="att-plane">
+    <div class="att-title"><i class="viz-key q"></i>query<i class="viz-key k"></i>keys</div>
+    <svg data-keys viewBox="-100 -100 200 200" role="img" aria-label="The query vector and five key vectors drawn as arrows from a common origin"></svg>
+  </div>
+  <div>
+    <div class="att-title">Scores to weights</div>
+    <div class="att-rows" data-rows></div>
+  </div>
+  <div class="att-plane">
+    <div class="att-title">Weighted average of the values</div>
+    <svg data-values viewBox="-100 -100 200 200" role="img" aria-label="Five value vectors as dots and the attention output as their weighted average"></svg>
+  </div>
+</div>
+<p class="viz-note" aria-live="polite" data-note></p>
+<noscript><p class="viz-note">This figure is interactive and needs JavaScript.</p></noscript>

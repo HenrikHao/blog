@@ -1,0 +1,70 @@
+<style>
+#viz-chunking .cell { fill: color-mix(in srgb, var(--viz-s1) 14%, transparent); stroke: var(--viz-s1); stroke-width: 1; }
+#viz-chunking .split { stroke: var(--viz-s1); stroke-width: 1; opacity: .45; }
+#viz-chunking .look { fill: var(--viz-s2); }
+#viz-chunking .stem { stroke: var(--viz-s2); stroke-width: 1.5; }
+#viz-chunking .row-title { font-size: 14px; font-weight: 600; }
+#viz-chunking .row-sub { font-size: 12px; fill: var(--viz-ink-2); }
+#viz-chunking .key { font-size: 12px; fill: var(--viz-ink-2); }
+</style>
+<div class="viz-scroll" style="--viz-min: 560px">
+<svg viewBox="0 0 600 196" role="img" aria-labelledby="chunking-title chunking-desc">
+<title id="chunking-title">Single-step policy versus action chunking</title>
+<desc id="chunking-desc">Over twelve timesteps a single-step policy looks at the camera twelve times and outputs one action each time. With a chunk size of four it looks three times and outputs four actions each time.</desc>
+<g transform="translate(112 12)"><circle class="look" cx="5" cy="0" r="4.5"/><text class="key" x="16" y="4">policy reads the cameras</text><rect class="cell" x="188" y="-7" width="18" height="14" rx="3"/><text class="key" x="212" y="4">one action (20 ms at 50 Hz)</text></g>
+<text class="row-title" x="8" y="78">k = 1</text><text class="row-sub" x="8" y="94">12 decisions</text>
+<line class="stem" x1="129.0" y1="49" x2="129.0" y2="59"/><circle class="look" cx="129.0" cy="44" r="4.5"/>
+<rect class="cell" x="112" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="167.0" y1="49" x2="167.0" y2="59"/><circle class="look" cx="167.0" cy="44" r="4.5"/>
+<rect class="cell" x="150" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="205.0" y1="49" x2="205.0" y2="59"/><circle class="look" cx="205.0" cy="44" r="4.5"/>
+<rect class="cell" x="188" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="243.0" y1="49" x2="243.0" y2="59"/><circle class="look" cx="243.0" cy="44" r="4.5"/>
+<rect class="cell" x="226" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="281.0" y1="49" x2="281.0" y2="59"/><circle class="look" cx="281.0" cy="44" r="4.5"/>
+<rect class="cell" x="264" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="319.0" y1="49" x2="319.0" y2="59"/><circle class="look" cx="319.0" cy="44" r="4.5"/>
+<rect class="cell" x="302" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="357.0" y1="49" x2="357.0" y2="59"/><circle class="look" cx="357.0" cy="44" r="4.5"/>
+<rect class="cell" x="340" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="395.0" y1="49" x2="395.0" y2="59"/><circle class="look" cx="395.0" cy="44" r="4.5"/>
+<rect class="cell" x="378" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="433.0" y1="49" x2="433.0" y2="59"/><circle class="look" cx="433.0" cy="44" r="4.5"/>
+<rect class="cell" x="416" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="471.0" y1="49" x2="471.0" y2="59"/><circle class="look" cx="471.0" cy="44" r="4.5"/>
+<rect class="cell" x="454" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="509.0" y1="49" x2="509.0" y2="59"/><circle class="look" cx="509.0" cy="44" r="4.5"/>
+<rect class="cell" x="492" y="60" width="34" height="28" rx="4"/>
+<line class="stem" x1="547.0" y1="49" x2="547.0" y2="59"/><circle class="look" cx="547.0" cy="44" r="4.5"/>
+<rect class="cell" x="530" y="60" width="34" height="28" rx="4"/>
+<text class="row-title" x="8" y="150">k = 4</text><text class="row-sub" x="8" y="166">3 decisions</text>
+<line class="stem" x1="129.0" y1="121" x2="129.0" y2="131"/><circle class="look" cx="129.0" cy="116" r="4.5"/>
+<rect class="cell" x="112" y="132" width="148" height="28" rx="4"/>
+<line class="split" x1="148.0" y1="136" x2="148.0" y2="156"/>
+<line class="split" x1="186.0" y1="136" x2="186.0" y2="156"/>
+<line class="split" x1="224.0" y1="136" x2="224.0" y2="156"/>
+<line class="stem" x1="281.0" y1="121" x2="281.0" y2="131"/><circle class="look" cx="281.0" cy="116" r="4.5"/>
+<rect class="cell" x="264" y="132" width="148" height="28" rx="4"/>
+<line class="split" x1="300.0" y1="136" x2="300.0" y2="156"/>
+<line class="split" x1="338.0" y1="136" x2="338.0" y2="156"/>
+<line class="split" x1="376.0" y1="136" x2="376.0" y2="156"/>
+<line class="stem" x1="433.0" y1="121" x2="433.0" y2="131"/><circle class="look" cx="433.0" cy="116" r="4.5"/>
+<rect class="cell" x="416" y="132" width="148" height="28" rx="4"/>
+<line class="split" x1="452.0" y1="136" x2="452.0" y2="156"/>
+<line class="split" x1="490.0" y1="136" x2="490.0" y2="156"/>
+<line class="split" x1="528.0" y1="136" x2="528.0" y2="156"/>
+<text class="muted" x="129.0" y="178" text-anchor="middle">0</text>
+<text class="muted" x="167.0" y="178" text-anchor="middle">1</text>
+<text class="muted" x="205.0" y="178" text-anchor="middle">2</text>
+<text class="muted" x="243.0" y="178" text-anchor="middle">3</text>
+<text class="muted" x="281.0" y="178" text-anchor="middle">4</text>
+<text class="muted" x="319.0" y="178" text-anchor="middle">5</text>
+<text class="muted" x="357.0" y="178" text-anchor="middle">6</text>
+<text class="muted" x="395.0" y="178" text-anchor="middle">7</text>
+<text class="muted" x="433.0" y="178" text-anchor="middle">8</text>
+<text class="muted" x="471.0" y="178" text-anchor="middle">9</text>
+<text class="muted" x="509.0" y="178" text-anchor="middle">10</text>
+<text class="muted" x="547.0" y="178" text-anchor="middle">11</text>
+<text class="muted" x="572" y="178">t</text>
+</svg>
+</div>

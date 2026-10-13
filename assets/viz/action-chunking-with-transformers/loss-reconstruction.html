@@ -1,0 +1,30 @@
+<style>
+#viz-loss-reconstruction .line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+#viz-loss-reconstruction .line.demo { stroke: var(--viz-muted); }
+#viz-loss-reconstruction .line.pred { stroke: var(--viz-s1); }
+#viz-loss-reconstruction .gap { fill: var(--viz-s2); opacity: .9; }
+#viz-loss-reconstruction .pad { fill: var(--viz-ink); opacity: .07; }
+#viz-loss-reconstruction .lr-title { font-size: 12px; fill: var(--viz-ink-2); }
+#viz-loss-reconstruction .viz-key.demo { color: var(--viz-muted); }
+#viz-loss-reconstruction .viz-key.pred { color: var(--viz-s1); }
+#viz-loss-reconstruction .viz-key.gap { color: var(--viz-s2); }
+#viz-loss-reconstruction select { font: inherit; font-size: 13px; padding: 4px 6px; border: 1px solid var(--viz-control); border-radius: 6px; background: var(--viz-surface); color: var(--viz-ink); }
+#viz-loss-reconstruction .viz-readout { margin: 8px 0 0; min-height: 2.9em; }
+</style>
+<div class="viz-controls">
+  <label class="viz-field">Training sample
+    <input type="range" min="0" max="39" step="1" value="14" data-sample style="width: 180px" disabled>
+    <output data-sample-out></output>
+  </label>
+  <label class="viz-field">Joint
+    <select data-joint disabled></select>
+  </label>
+</div>
+<div class="viz-legend">
+  <span><i class="viz-key demo"></i>demonstrated chunk (the target)</span>
+  <span><i class="viz-key pred"></i>predicted chunk</span>
+  <span><i class="viz-key gap is-box"></i>absolute error</span>
+</div>
+<div data-chart></div>
+<p class="viz-readout" aria-live="polite" data-readout>Loading the recording…</p>
+<noscript><p class="viz-note">This figure is interactive and needs JavaScript.</p></noscript>

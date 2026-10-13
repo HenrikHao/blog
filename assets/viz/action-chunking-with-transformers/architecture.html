@@ -1,0 +1,131 @@
+<style>
+#viz-architecture .blk { fill: var(--viz-surface-2); stroke: var(--viz-axis); stroke-width: 1; }
+#viz-architecture .blk-tf { fill: color-mix(in srgb, var(--viz-s1) 13%, transparent); stroke: var(--viz-s1); stroke-width: 1; }
+#viz-architecture .blk-q { fill: color-mix(in srgb, var(--viz-s2) 14%, transparent); stroke: var(--viz-s2); stroke-width: 1; }
+#viz-architecture .blk-z { fill: color-mix(in srgb, var(--viz-s3) 16%, transparent); stroke: var(--viz-s3); stroke-width: 1; }
+#viz-architecture .blk-loss { fill: none; stroke: var(--viz-ink-2); stroke-width: 1; }
+#viz-architecture .band { fill: none; stroke: var(--viz-axis); stroke-width: 1; stroke-dasharray: 5 4; }
+#viz-architecture .wire { fill: none; stroke: var(--viz-ink-2); stroke-width: 1.25; }
+#viz-architecture .wire-soft { fill: none; stroke: var(--viz-ink-2); stroke-width: 1; stroke-dasharray: 3 3; }
+#viz-architecture .tip { fill: var(--viz-ink-2); }
+#viz-architecture text { font-size: 12px; text-anchor: middle; }
+#viz-architecture text.h { font-size: 13px; font-weight: 600; }
+#viz-architecture text.s { font-size: 11px; fill: var(--viz-ink-2); }
+#viz-architecture text.l { text-anchor: start; }
+#viz-architecture .train-only,
+#viz-architecture .when-train,
+#viz-architecture .when-infer { transition: opacity .35s ease; }
+#viz-architecture .when-infer { opacity: 0; }
+#viz-architecture .is-infer .train-only { opacity: .16; }
+#viz-architecture .is-infer .when-train { opacity: 0; }
+#viz-architecture .is-infer .when-infer { opacity: 1; }
+</style>
+<div class="viz-controls">
+  <div class="viz-seg" role="group" aria-label="Mode">
+    <button type="button" data-mode="train" aria-pressed="true">Training</button>
+    <button type="button" data-mode="infer" aria-pressed="false">Inference</button>
+  </div>
+</div>
+<div class="viz-scroll" style="--viz-min: 640px">
+<svg viewBox="0 0 680 410" role="img" aria-labelledby="arch-title arch-desc">
+  <title id="arch-title">ACT architecture</title>
+  <desc id="arch-desc">During training a CVAE encoder turns the demonstrated action chunk and the joint positions into a style variable z. The policy turns four camera images, the joint positions and z into 1202 tokens, runs a transformer encoder over them, and a transformer decoder with k action queries cross-attends to the result to predict k actions. At inference the CVAE encoder is dropped and z is set to zero.</desc>
+  <defs>
+    <marker id="arch-tip" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path class="tip" d="M0 0 L8 4 L0 8 Z"/>
+    </marker>
+  </defs>
+
+  <!-- CVAE encoder: training only -->
+  <g class="train-only">
+    <rect class="band" x="10" y="10" width="300" height="168" rx="10"/>
+    <text class="h l" x="24" y="33">CVAE encoder</text>
+    <text class="s l" x="122" y="33">training only</text>
+
+    <rect class="blk" x="24" y="46" width="46" height="26" rx="5"/>
+    <text x="47" y="63">[CLS]</text>
+    <rect class="blk" x="74" y="46" width="56" height="26" rx="5"/>
+    <text x="102" y="63">joints</text>
+    <rect class="blk-q" x="134" y="46" width="162" height="26" rx="5"/>
+    <text x="215" y="63">demo actions a · k × 14</text>
+
+    <path class="wire" d="M160 72 V88" marker-end="url(#arch-tip)"/>
+    <rect class="blk-tf" x="44" y="90" width="232" height="32" rx="6"/>
+    <text x="160" y="110"><tspan class="h">Transformer encoder</tspan>&#160;· 4 layers</text>
+
+    <path class="wire" d="M250 122 V136" marker-end="url(#arch-tip)"/>
+    <rect class="blk-z" x="190" y="138" width="110" height="28" rx="6"/>
+    <text x="245" y="156">μ, σ → sample</text>
+    <path class="wire" d="M250 166 V200" marker-end="url(#arch-tip)"/>
+
+    <!-- loss -->
+    <rect class="blk-loss" x="384" y="30" width="252" height="44" rx="6"/>
+    <text x="510" y="57"><tspan class="h">loss</tspan>&#160;= L1(â, a) + β · KL(q ‖ 𝒩(0, I))</text>
+    <path class="wire-soft" d="M300 152 H420 V76" marker-end="url(#arch-tip)"/>
+    <text class="s l" x="427" y="120">KL</text>
+    <path class="wire-soft" d="M568 112 V76" marker-end="url(#arch-tip)"/>
+    <text class="s l" x="575" y="98">L1</text>
+  </g>
+
+  <!-- Policy inputs -->
+  <rect class="blk-z" x="200" y="202" width="100" height="28" rx="6"/>
+  <text class="when-train" x="250" y="220">z token</text>
+  <text class="when-infer h" x="250" y="220">z = 0</text>
+
+  <rect class="blk" x="16" y="246" width="140" height="28" rx="6"/>
+  <text x="86" y="264">joint positions · 14</text>
+  <path class="wire" d="M156 260 H198" marker-end="url(#arch-tip)"/>
+  <rect class="blk" x="200" y="246" width="100" height="28" rx="6"/>
+  <text x="250" y="264">joints token</text>
+
+  <rect class="blk" x="16" y="298" width="44" height="33" rx="3"/>
+  <rect class="blk" x="21" y="303" width="44" height="33" rx="3"/>
+  <rect class="blk" x="26" y="308" width="44" height="33" rx="3"/>
+  <rect class="blk" x="31" y="313" width="44" height="33" rx="3"/>
+  <text class="h" x="46" y="366">4 cameras</text>
+  <text class="s" x="46" y="381">480 × 640</text>
+  <path class="wire" d="M79 326 H98" marker-end="url(#arch-tip)"/>
+  <rect class="blk" x="100" y="308" width="72" height="36" rx="6"/>
+  <text x="136" y="330">ResNet-18</text>
+  <path class="wire" d="M172 326 H198" marker-end="url(#arch-tip)"/>
+  <rect class="blk" x="200" y="290" width="100" height="72" rx="6"/>
+  <text class="h" x="250" y="322">1200 tokens</text>
+  <text class="s" x="250" y="339">4 × 15 × 20</text>
+
+  <path class="wire" d="M300 216 H334" marker-end="url(#arch-tip)"/>
+  <path class="wire" d="M300 260 H334" marker-end="url(#arch-tip)"/>
+  <path class="wire" d="M300 326 H334" marker-end="url(#arch-tip)"/>
+
+  <!-- Policy transformer -->
+  <rect class="blk-tf" x="336" y="202" width="116" height="160" rx="8"/>
+  <text class="h" x="394" y="262">Transformer</text>
+  <text class="h" x="394" y="279">encoder</text>
+  <text class="s" x="394" y="302">4 layers</text>
+  <text class="s" x="394" y="318">self-attention</text>
+  <text class="s" x="394" y="333">over 1202 tokens</text>
+
+  <path class="wire" d="M452 282 H498" marker-end="url(#arch-tip)"/>
+  <text class="s" x="475" y="273">memory</text>
+
+  <rect class="blk-tf" x="500" y="232" width="136" height="100" rx="8"/>
+  <text class="h" x="568" y="268">Transformer</text>
+  <text class="h" x="568" y="285">decoder</text>
+  <text class="s" x="568" y="306">cross-attention</text>
+  <text class="s" x="568" y="321">to memory</text>
+
+  <rect class="blk-q" x="500" y="366" width="136" height="30" rx="6"/>
+  <text x="568" y="385">k action queries</text>
+  <path class="wire" d="M568 366 V334" marker-end="url(#arch-tip)"/>
+
+  <path class="wire" d="M568 232 V208" marker-end="url(#arch-tip)"/>
+  <rect class="blk" x="528" y="178" width="80" height="28" rx="6"/>
+  <text x="568" y="196">linear head</text>
+  <path class="wire" d="M568 178 V154" marker-end="url(#arch-tip)"/>
+  <rect class="blk-q" x="500" y="112" width="136" height="40" rx="6"/>
+  <text class="h" x="568" y="130">action chunk â</text>
+  <text class="s" x="568" y="145">k × 14</text>
+</svg>
+</div>
+<p class="viz-note" aria-live="polite" data-note>
+  <strong>Training.</strong> The CVAE encoder sees the demonstrated chunk and squeezes it into z. The policy has to rebuild that chunk from the observation plus z.
+</p>

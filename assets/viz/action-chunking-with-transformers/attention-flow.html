@@ -1,0 +1,65 @@
+<style>
+.viz-attention-flow .viz-body { container-type: inline-size; }
+.viz-attention-flow .af-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: start; }
+.viz-attention-flow .af-stage svg { width: 100%; height: auto; }
+.viz-attention-flow .af-title { margin: 0 0 6px; color: var(--viz-ink-2); font-size: 12px; }
+.viz-attention-flow .col-title { font-size: 11px; fill: var(--viz-ink-2); }
+.viz-attention-flow .chip rect { fill: var(--viz-surface-2); stroke: var(--viz-axis); stroke-width: 1; transition: stroke .2s ease; }
+.viz-attention-flow .chip text { font-size: 12px; }
+.viz-attention-flow .chip.can-ask { cursor: pointer; }
+.viz-attention-flow .chip.can-ask:hover rect { stroke: var(--viz-ink-2); }
+.viz-attention-flow .chip.is-asking rect { stroke: var(--viz-s2); stroke-width: 2; }
+.viz-attention-flow .tag { opacity: 0; transition: opacity .3s ease; }
+.viz-attention-flow .tag.on { opacity: 1; }
+.viz-attention-flow .tag text { font-size: 10px; font-weight: 700; fill: var(--viz-on-fill); text-anchor: middle; }
+.viz-attention-flow .tag.q circle, .viz-attention-flow .pulse.q { fill: var(--viz-s2); }
+.viz-attention-flow .tag.k circle { fill: var(--viz-s1); }
+.viz-attention-flow .tag.v circle, .viz-attention-flow .pulse.v { fill: var(--viz-s3); }
+.viz-attention-flow .guide { stroke: var(--viz-grid); stroke-width: 1; }
+.viz-attention-flow .link { stroke: var(--viz-s1); stroke-linecap: round; transition: opacity .45s ease, stroke-width .45s ease; }
+.viz-attention-flow .pulse { opacity: 0; }
+.viz-attention-flow .cell { fill: var(--viz-s1); transition: opacity .35s ease; }
+.viz-attention-flow .cell-bg { fill: var(--viz-surface-2); }
+.viz-attention-flow .cell-text { font-size: 9px; text-anchor: middle; fill: var(--viz-ink); pointer-events: none; }
+.viz-attention-flow .row-mark { fill: none; stroke: var(--viz-s2); stroke-width: 2; }
+.viz-attention-flow .m-label { font-size: 10px; fill: var(--viz-ink-2); }
+.viz-attention-flow .af-recipe { display: flex; gap: 2px; height: 14px; border-left: 1px solid var(--viz-axis); }
+.viz-attention-flow .af-recipe i { display: block; height: 100%; min-width: 0; background: var(--viz-s3); border-radius: 2px; transition: flex-grow .5s ease; }
+.viz-attention-flow .af-result { margin-top: 12px; }
+.viz-attention-flow .af-result .af-title { min-height: 2.9em; }
+.viz-attention-flow .viz-note { min-height: 4.4em; }
+.viz-attention-flow .viz-key.q { color: var(--viz-s2); }
+.viz-attention-flow .viz-key.k { color: var(--viz-s1); }
+.viz-attention-flow .viz-key.v { color: var(--viz-s3); }
+@container (max-width: 560px) {
+  .viz-attention-flow .af-grid { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+<div class="viz-controls">
+  <div class="viz-seg" role="group" aria-label="Phase">
+    <button type="button" data-phase="1" aria-pressed="false">1 · Ask</button>
+    <button type="button" data-phase="2" aria-pressed="false">2 · Match</button>
+    <button type="button" data-phase="3" aria-pressed="false">3 · Read</button>
+  </div>
+  <button type="button" class="viz-btn" data-play>Play all</button>
+</div>
+<div class="viz-legend">
+  <span><i class="viz-key q is-box"></i>query</span>
+  <span><i class="viz-key k is-box"></i>key, and the weight it earns</span>
+  <span><i class="viz-key v is-box"></i>value</span>
+</div>
+<div class="af-grid">
+  <div class="af-stage">
+    <svg data-stage role="img" aria-label="Tokens that ask on the left, tokens that are read on the right, joined by lines whose thickness is the attention weight"></svg>
+  </div>
+  <div>
+    <p class="af-title" data-matrix-title></p>
+    <svg data-matrix role="img" aria-label="Attention map: one row per asking token, one column per token being read"></svg>
+  </div>
+</div>
+<div class="af-result">
+  <p class="af-title" data-recipe-title></p>
+  <div class="af-recipe" data-recipe role="img" aria-label="Share of each token in what was collected"></div>
+</div>
+<p class="viz-note" aria-live="polite" data-note></p>
+<noscript><p class="viz-note">This figure is interactive and needs JavaScript.</p></noscript>

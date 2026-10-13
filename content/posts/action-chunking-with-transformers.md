@@ -2,7 +2,7 @@
 title: "Action Chunking with Transformers, piece by piece"
 slug: action-chunking-with-transformers
 date: 2026-10-13T12:00:00+11:00
-draft: true
+draft: false
 summary: "ACT is the usual starting point for modern imitation learning. This post walks through action chunking, the architecture, the style variable, training and inference, how attention works inside it, and temporal ensembling."
 description: "How ACT works: action chunks, the CVAE style variable, training and inference, what queries, keys and values are, what self-attention and cross-attention do, and temporal ensembling."
 tags:
@@ -769,9 +769,6 @@ chunk it is in the middle of executing.
   on the way out and on the way back, the current frame does not say which
   phase the task is in. ACT is then asked for two opposite actions from the
   same input, and it has nothing to choose between them with.
-
-> **Draft note.** Add a closing paragraph pointing at the next post once the
-> series order is settled.
 
 ## References
 

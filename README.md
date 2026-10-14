@@ -15,7 +15,7 @@ Install and start Docker Desktop, install `lzc-cli`, and clone the repository
 with its theme:
 
 ```sh
-git clone --recurse-submodules YOUR_GIT_URL Blog
+git clone --recurse-submodules https://github.com/HenrikHao/blog.git Blog
 cd Blog
 lzc-cli box default
 ```
@@ -26,14 +26,7 @@ If you cloned without `--recurse-submodules`, fetch PaperMod afterward:
 git submodule update --init --recursive
 ```
 
-This local repository uses branch `main` and has the Git author configured as
-`HenrikHao <zy.henrikhao@gmail.com>`. It does not have an `origin` yet. After
-creating an empty repository on your Git host, connect and push it with:
-
-```sh
-git remote add origin YOUR_GIT_URL
-git push -u origin main
-```
+The source lives at <https://github.com/HenrikHao/blog>, on branch `main`.
 
 ## Customize the blog
 
